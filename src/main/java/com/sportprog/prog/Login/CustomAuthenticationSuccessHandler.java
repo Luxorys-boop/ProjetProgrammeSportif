@@ -19,11 +19,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String username = authentication.getName(); 
         System.out.println("User " + username + " est connecté");
 
-        if (authentication.getAuthorities().stream()
-                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
-            response.sendRedirect("/index"); 
-        } else {
-            response.sendRedirect("/index"); 
-        }
+        response.sendRedirect("user/index"); // Redirect user to /index after successful login
     }
 }

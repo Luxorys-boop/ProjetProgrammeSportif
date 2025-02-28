@@ -21,28 +21,40 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/register", "/css/**", "/js/**").permitAll() // pages publiques
-                .anyRequest().authenticated() // toutes autres pages -> to connexion
+                .requestMatchers("/login", "/register").permitAll() // Public endpoints
+                .requestMatchers("/index").authenticated() // Secure /index for authenticated users
+                .anyRequest().authenticated() // Secure all other endpoints
             )
             .formLogin(form -> form
-                .loginPage("/login") // page de login
-                .defaultSuccessUrl("/index") // redirection après connexion réussie
-                .usernameParameter("email") // email comme identifiant
+                .loginPage("/login") // login page
+                .defaultSuccessUrl("/index", true) // redirect after successful login
+                .usernameParameter("email") // email as username
                 .passwordParameter("password")
-                .successHandler(customAuthenticationSuccessHandler) 
-                .permitAll()
+                .failureUrl("/login?error=true")
             )
             .logout(logout -> logout
-                .logoutSuccessUrl("/login?logout") // redirection après déconnexion
-                .permitAll()
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true) // Invalidate session
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login?logout") // redirect after logout
+                
+            )
+            .sessionManagement(session -> session
+                .sessionFixation().migrateSession() // Migrate session on login
+                .maximumSessions(1) // Allow only one session per user
+                .expiredUrl("/login?expired") // Redirect to login page if session expires
+            )
+            .securityContext(context -> context
+                .requireExplicitSave(true) // Explicitly save the SecurityContext
             );
 
         return http.build();
     }
 
+    
+
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

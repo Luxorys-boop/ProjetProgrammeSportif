@@ -2,8 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion...</title>
+    <title>Accueil - Accompagnement d'activités physiques</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a th:href="@{/index}">Accueil</a></li>
+                <li><a th:href="@{/profile}">Mon Profil</a></li>
+                <li><a th:href="@{/activities}">Activités</a></li>
+                <li><a th:href="@{/recommendations}">Recommandations</a></li>
+                <form th:action="@{/logout}" method="post"><button th:href="@{/logout}">Déconnexion</button></form>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <h1>Bienvenue</h1>
+        <section>
+            <h2>Votre programme thérapeutique</h2>
+            <div th:each="activite : ${userActivities}">
+                <h3 th:text="${activity.name}">Nom de l'activité</h3>
+                <p th:text="${activity.description}">Description de l'activité</p>
+                <p>Évaluation : <span th:text="${activity.rating}">5</span>/5</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Application d'accompagnement d'activités physiques</p>
+    </footer>
 </body>
+</html>
+ 
