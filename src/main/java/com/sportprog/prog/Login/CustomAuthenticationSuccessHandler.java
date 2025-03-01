@@ -19,6 +19,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String username = authentication.getName(); 
         System.out.println("User " + username + " est connecté");
 
-        response.sendRedirect("user/index"); // Redirect user to /index after successful login
+        response.sendRedirect("/my_profile"); // Redirect user to /index after successful login
     }
 }
