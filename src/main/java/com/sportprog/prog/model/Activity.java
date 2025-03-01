@@ -1,5 +1,7 @@
 package com.sportprog.prog.model;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,40 +14,40 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String nom;
     private String description;
-    private int rating;
+    private String categorie;
+    private String pathologie;
 
-    // Getters et Setters
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public int getRating() {
-        return rating;
+    public String getCategorie() {
+        return categorie;
     }
-
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
     }
+    public String getPathologie() {
+        return pathologie;
+    }
+    public void setPathologie(String pathologie) {
+        this.pathologie = pathologie;
+    }
+   
 }

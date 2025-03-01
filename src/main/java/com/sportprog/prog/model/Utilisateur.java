@@ -1,9 +1,12 @@
 package com.sportprog.prog.model;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 
 @Entity
 public class Utilisateur {
@@ -19,7 +22,6 @@ public class Utilisateur {
     private String email;
     private String genre;
     private String pathologie;
-
 
     // Getters et setters
     public Long getId() {
@@ -89,4 +91,5 @@ public class Utilisateur {
         // TODO Auto-generated method stub
         this.pathologie = pathologie;
     }
+
 }

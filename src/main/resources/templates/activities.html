@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Activités</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Activités</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Catégories d'activités</h2>
+            <ul>
+                <li th:each="categorie : ${categories}">
+                    <a th:href="@{'/activites/' + ${categorie.id}}"
+                       th:text="${categorie.nom}">Catégorie</a>
+                </li>
+            </ul>
+        </section>
+        <section th:if="${activite}">
+            <h2 th:text="${activite.nom}">Activité</h2>
+            <ul>
+                <li th:each="programme : ${programmes}">
+                    <div th:text="${programme.nom}">Programme</div>
+                    <button th:if="${!programme.inscrit}" th:onclick="'/inscrire/' + ${programme.id}">
+                        S'inscrire
+                    </button>
+                    <button th:if="${programme.inscrit}" th:onclick="'/desinscrire/' + ${programme.id}">
+                        Se désinscrire
+                    </button>
+                </li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

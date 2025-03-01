@@ -21,7 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/register").permitAll() // Public endpoints
+                .requestMatchers("/login", "/register", "/activities").permitAll() // Public endpoints
                 .requestMatchers("/index").authenticated() // Secure /index for authenticated users
                 .anyRequest().authenticated() // Secure all other endpoints
             )
