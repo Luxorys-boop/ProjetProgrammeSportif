@@ -2,10 +2,15 @@ package com.sportprog.prog.model;
 
 
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Activity {
@@ -15,8 +20,16 @@ public class Activity {
     private Long id;
 
     private String nom;
+
+    @ManyToMany
+    @JoinTable(
+        name = "activity_category", // Nom de la table de liaison
+        joinColumns = @JoinColumn(name = "activity_id"), // Colonne de cette entité
+        inverseJoinColumns = @JoinColumn(name = "categorie_id") // Colonne de l'autre entité
+    )
+    private Set<Categorie> categories;
+
     private String description;
-    private String categorie;
     private String pathologie;
 
     public Long getId() {
@@ -37,17 +50,17 @@ public class Activity {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getCategorie() {
-        return categorie;
-    }
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
     public String getPathologie() {
         return pathologie;
     }
     public void setPathologie(String pathologie) {
         this.pathologie = pathologie;
     }
-   
+    public Set<Categorie> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Categorie> categories) {
+        this.categories = categories;
+    }
 }

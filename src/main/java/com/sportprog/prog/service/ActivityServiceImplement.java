@@ -1,5 +1,6 @@
 package com.sportprog.prog.service;
 
+import com.sportprog.prog.dto.CategoryDTO;
 import com.sportprog.prog.model.Activity;
 import com.sportprog.prog.repository.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,11 @@ public class ActivityServiceImplement implements ActivityService {
     }
 
     @Override
+    public List<CategoryDTO> getDistinctCategories() {
+        return activityRepository.findDistinctCategories();
+    }
+
+    @Override
     public void inscrireUtilisateur(Long utilisateurId, Long activityId) {
         
     }
@@ -91,4 +97,11 @@ public class ActivityServiceImplement implements ActivityService {
     public void desinscrireUtilisateur(Long utilisateurId, Long activityId) {
         
     }
+
+    @Override
+    public List<Activity> findActivitiesByCategoryId(Long categoryId) {
+        return activityRepository.findActivitiesByCategoryId(categoryId);
+    }
+
+   
 }

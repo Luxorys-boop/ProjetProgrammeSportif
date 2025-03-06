@@ -1,5 +1,6 @@
 package com.sportprog.prog.controller;
 
+import com.sportprog.prog.dto.CategoryDTO;
 import com.sportprog.prog.model.Activity;
 import com.sportprog.prog.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,22 @@ public class ActivityController {
 
     @GetMapping("/activities")
     public String afficherCategories(Model model) {
-        List<Activity> categories = activityService.getAllCategories();
+        // Récupérer les catégories distinctes sous forme de CategoryDTO
+        List<CategoryDTO> categories = activityService.getDistinctCategories();
+        
+        // Ajouter les catégories au modèle
         model.addAttribute("categories", categories);
+        
+        // Retourner le nom de la vue Thymeleaf
         return "activities";
     }
 
-    @GetMapping("/activities/{id}")
-    public String afficherProgrammes(@PathVariable Long id, Model model) {
-        Activity activite = activityService.getActivityById(id);
-        model.addAttribute("activite", activite);
-        // Ajouter les programmes associés à l'activité
-        return "activities";
+    @GetMapping("/activites/categorie/{id}")
+    public String afficherActivitesParCategorie(@PathVariable Long id, Model model) {
+        List<Activity> activites = activityService.findActivitiesByCategoryId(id);
+        model.addAttribute("activites", activites);
+        model.addAttribute("categorie", activites.get(0).getCategories().iterator().next().getNom()); // Nom de la catégorie
+        return "activites-par-categorie";
     }
 
     @GetMapping("/inscrire/{programmeId}")

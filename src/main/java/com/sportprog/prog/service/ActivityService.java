@@ -1,6 +1,7 @@
 package com.sportprog.prog.service;
 
 import com.sportprog.prog.model.Activity;
+import com.sportprog.prog.dto.CategoryDTO;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -53,7 +54,12 @@ public interface ActivityService {
 
     public List<Activity> getAllCategories();
 
+    List<CategoryDTO> getDistinctCategories();
+
+    List<Activity> findActivitiesByCategoryId(Long categoryId);
+
     public void inscrireUtilisateur(Long utilisateurId, Long activityId);
 
     public void desinscrireUtilisateur(Long utilisateurId, Long activityId);
+
 }

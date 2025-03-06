@@ -21,31 +21,32 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/index", "/login", "/register", "/activities").permitAll() // Public endpoints
-                .requestMatchers("/my_profile").authenticated() // Secure /index for authenticated users
-                .anyRequest().authenticated() // Secure all other endpoints
+                .requestMatchers("/index", "/login", "/register", "/activities").permitAll()
+                .requestMatchers("/my_profile").authenticated() 
+                .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/login") // login page
-                .defaultSuccessUrl("/index", true) // redirect after successful login
-                .usernameParameter("email") // email as username
+                .loginPage("/login")
+                .successHandler(customAuthenticationSuccessHandler)
+                .usernameParameter("email") 
                 .passwordParameter("password")
                 .failureUrl("/login?error=true")
+                
             )
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .invalidateHttpSession(true) // Invalidate session
+                .invalidateHttpSession(true) 
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login?logout") // redirect after logout
+                .logoutSuccessUrl("/login?logout") 
                 
             )
             .sessionManagement(session -> session
-                .sessionFixation().migrateSession() // Migrate session on login
-                .maximumSessions(1) // Allow only one session per user
-                .expiredUrl("/login?expired") // Redirect to login page if session expires
+                .sessionFixation().migrateSession() 
+                .maximumSessions(1) 
+                .expiredUrl("/login?expired") 
             )
             .securityContext(context -> context
-                .requireExplicitSave(true) // Explicitly save the SecurityContext
+                .requireExplicitSave(true) 
             );
 
         return http.build();
