@@ -33,6 +33,14 @@ public class ActivityController {
     public String afficherActivitesParCategorie(@PathVariable Long id, Model model) {
         List<Activity> activites = activityService.findActivitiesByCategoryId(id);
         model.addAttribute("activites", activites);
+        if (activites.isEmpty()) {
+            // Si la liste est vide, ajouter un message d'erreur ou rediriger
+            model.addAttribute("errorMessage", "Aucune activité trouvée pour cette catégorie.");
+            return "activites-par-categorie"; // Retourner la même vue avec un message d'erreur
+        }
+        
+        // Ajouter les activités et le nom de la catégorie au modèle
+        model.addAttribute("activites", activites);
         model.addAttribute("categorie", activites.get(0).getCategories().iterator().next().getNom()); // Nom de la catégorie
         return "activites-par-categorie";
     }
