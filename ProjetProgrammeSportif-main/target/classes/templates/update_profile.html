@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mettre à jour mon profil</title>
+</head>
+<body>
+    <h1>Mettre à jour mon profil</h1>
+    <p>Email : <span th:text="${utilisateur.email}"></span></p>
+    <form action="/update_profile" method="post">
+        <!-- Champ caché pour le jeton CSRF et l'utilisateur -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" name="userId" th:value="${utilisateur.id}">
+    
+        <!-- Champs du formulaire -->
+
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" th:value="${utilisateur.nom}" required><br>
+    
+        <label for="age">Âge :</label>
+        <input type="number" id="age" name="age" th:value="${utilisateur.age}" required><br>
+    
+        <label for="genre">Genre :</label>
+        <input type="text" id="genre" name="genre" th:value="${utilisateur.genre}" required><br>
+    
+        <label for="pathologie">Pathologie :</label>
+        <input type="text" id="pathologie" name="pathologie" th:value="${utilisateur.pathologie}" required><br>
+    
+        <!-- Bouton de validation -->
+        <button type="submit">Mettre à jour</button>
+    </form>
+</body>
+</html>
