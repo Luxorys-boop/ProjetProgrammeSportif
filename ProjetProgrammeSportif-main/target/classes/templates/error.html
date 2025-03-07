@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Something went wrong</h1>
+    </header>
+    <main>
+        <p>Status: <span th:text="${status}"></span></p>
+        <p>Error: <span th:text="${error}"></span></p>
+        <p>Message: <span th:text="${message}"></span></p>
+        <p>Path: <span th:text="${path}"></span></p>
+        <p>Timestamp: <span th:text="${timestamp}"></span></p>
+        <a th:href="@{/}">Return to Homepage</a>
+    </main>
+    <footer>
+        <p>&copy; 2025 Application d'accompagnement d'activités physiques</p>
+    </footer>
+</body>
+</html>

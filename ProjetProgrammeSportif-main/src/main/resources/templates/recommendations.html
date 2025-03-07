@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommandations d'Activités</title>
+</head>
+<body>
+
+    <h1>Recommandations d'Activités</h1>
+
+    <a th:href="@{/index}">Retour à l'accueil</a>
+
+    <ul>
+        <!-- Boucle sur les activités avec les notes -->
+        <li th:each="activiteAvecNote : ${activitesAvecNotes}">
+            <h2 th:text="${activiteAvecNote.activity.nom}"></h2>
+            <p><strong>Catégorie :</strong> <span th:text="${activiteAvecNote.activity.categorie}"></span></p>
+            <p><strong>Description :</strong> <span th:text="${activiteAvecNote.activity.description}"></span></p>
+            <p><strong>Pathologies :</strong> <span th:text="${activiteAvecNote.activity.pathologies}"></span></p>
+            
+            <!-- Note moyenne formatée -->
+            <p><strong>Note moyenne :</strong> 
+                <span th:text="${#numbers.formatDecimal(activiteAvecNote.note, 0, 'POINT', 2)}"></span> ⭐
+            </p>
+
+            <!-- Liste des évaluations pour cette activité -->
+            <h3>Évaluations :</h3>
+            <ul>
+                <li th:each="evaluation : ${activiteAvecNote.activity.evaluations}">
+                    <p><strong>Note :</strong> <span th:text="${evaluation.note}"></span> ⭐</p>
+                    <p><strong>Commentaire :</strong> <span th:text="${evaluation.commentaire}"></span></p>
+                    <p><strong>Par :</strong> <span th:text="${evaluation.utilisateur.nom}"></span></p>
+                </li>
+            </ul>
+
+            <!-- Vérifie si l'utilisateur est déjà inscrit à cette activité -->
+            <button th:if="${#lists.contains(utilisateur.activities, activiteAvecNote.activity)}"
+                    th:onclick="'window.location.href=\'/desinscrire/' + ${activiteAvecNote.activity.id} + '\''">
+                Je veux me désinscrire
+            </button>
+
+            <button th:if="${!#lists.contains(utilisateur.activities, activiteAvecNote.activity)}"
+                    th:onclick="'window.location.href=\'/inscrire/' + ${activiteAvecNote.activity.id} + '\''">
+                Je veux m'inscrire
+            </button>
+        </li>
+    </ul>
+
+</body>
+</html>
