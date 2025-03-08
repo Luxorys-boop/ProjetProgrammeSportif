@@ -2,7 +2,12 @@ package com.sportprog.prog.service;
 
 import com.sportprog.prog.dto.CategoryDTO;
 import com.sportprog.prog.model.Activity;
+import com.sportprog.prog.model.Utilisateur;
 import com.sportprog.prog.repository.ActivityRepository;
+import com.sportprog.prog.repository.UtilisateurRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +21,8 @@ public class ActivityServiceImplement implements ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
 
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
 
     /**
      * Récupère toutes les activités.
@@ -78,6 +85,30 @@ public class ActivityServiceImplement implements ActivityService {
         return false; // Retourne false si l'activité n'existe pas
     }
 
+    @Transactional
+    public void inscrireUtilisateur(Long utilisateurId, Long activityId) {
+        Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        Activity activity = activityRepository.findById(activityId)
+                .orElseThrow(() -> new RuntimeException("Activité non trouvée"));
+
+        // Ajouter l'utilisateur à l'activité
+        activity.getUsers().add(utilisateur);
+        activityRepository.save(activity);
+    }
+
+    @Transactional
+    public void desinscrireUtilisateur(Long utilisateurId, Long activityId) {
+        Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        Activity activity = activityRepository.findById(activityId)
+                .orElseThrow(() -> new RuntimeException("Activité non trouvée"));
+
+        // Retirer l'utilisateur de l'activité
+        activity.getUsers().remove(utilisateur);
+        activityRepository.save(activity);
+    }
+
     @Override
     public List<Activity> getAllCategories() {
         return activityRepository.findAll();
@@ -86,16 +117,6 @@ public class ActivityServiceImplement implements ActivityService {
     @Override
     public List<CategoryDTO> getDistinctCategories() {
         return activityRepository.findDistinctCategories();
-    }
-
-    @Override
-    public void inscrireUtilisateur(Long utilisateurId, Long activityId) {
-        
-    }
-
-    @Override
-    public void desinscrireUtilisateur(Long utilisateurId, Long activityId) {
-        
     }
 
     @Override

@@ -2,6 +2,9 @@ package com.sportprog.prog.controller;
 
 import com.sportprog.prog.model.Utilisateur;
 import com.sportprog.prog.repository.UtilisateurRepository;
+
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +36,8 @@ public class RegisterController {
             @RequestParam String password,
             @RequestParam int age,
             @RequestParam String genre,
-            @RequestParam String pathologie,
+            @RequestParam List<String> pathologies,
+
             Model model) {
 
         // Vérifie si l'utilisateur existe déjà
@@ -50,7 +54,7 @@ public class RegisterController {
         utilisateur.setPassword(passwordEncoder.encode(password)); // Encode le mot de passe
         utilisateur.setAge(age);
         utilisateur.setGenre(genre);
-        utilisateur.setPathologie(pathologie);
+        utilisateur.setPathologies(pathologies);
 
         // Enregistre l'utilisateur dans la base de données
         utilisateurRepository.save(utilisateur);

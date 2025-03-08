@@ -60,51 +60,46 @@ public class ActivityController {
     }
 
     @Transactional
-    @GetMapping("/inscrire/{programmeId}")
-    public String inscrireUtilisateur(@PathVariable Long programmeId, @CookieValue(value = "user_email", required = false) String userEmail) {
+    @GetMapping("/inscrire/{activityId}")
+    public String inscrireUtilisateur(@PathVariable Long activityId, @CookieValue(value = "user_email", required = false) String userEmail) {
         if (userEmail == null) {
-            return "redirect:/login"; // Redirect to login if the user is not logged in
+            return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
         }
 
-        Optional<Utilisateur> utilisateurOpt = utilisateurRepository.findByEmail(userEmail);
-        Optional<Activity> activityOpt = activityRepository.findById(programmeId);
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
-        if (utilisateurOpt.isPresent() && activityOpt.isPresent()) {
-            Utilisateur utilisateur = utilisateurOpt.get();
-            Activity activity = activityOpt.get();
+        activityService.inscrireUtilisateur(utilisateur.getId(), activityId);
 
-            // Check if the user is already registered for the activity
-            if (!utilisateur.getActivities().contains(activity)) {
-                utilisateur.getActivities().add(activity); // Register the user for the activity
-                utilisateurRepository.save(utilisateur); // Save changes
-            }
-        }
-
-        return "redirect:/activities"; // Redirect to recommendations page
+        return "redirect:/activities"; // Rediriger vers la page des activités
     }
+
 
     @Transactional
-    @GetMapping("/desinscrire/{programmeId}")
-    public String desinscrireUtilisateur(@PathVariable Long programmeId, @CookieValue(value = "user_email", required = false) String userEmail) {
+    @GetMapping("/desinscrire/{activityId}")
+    public String desinscrireUtilisateur(@PathVariable Long activityId, @CookieValue(value = "user_email", required = false) String userEmail) {
         if (userEmail == null) {
-            return "redirect:/login"; // Redirect to login if the user is not logged in
+            return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
         }
 
-        Optional<Utilisateur> utilisateurOpt = utilisateurRepository.findByEmail(userEmail);
-        Optional<Activity> activityOpt = activityRepository.findById(programmeId);
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
-        if (utilisateurOpt.isPresent() && activityOpt.isPresent()) {
-            Utilisateur utilisateur = utilisateurOpt.get();
-            Activity activity = activityOpt.get();
+        activityService.desinscrireUtilisateur(utilisateur.getId(), activityId);
 
-            // Check if the user is registered for the activity
-            if (utilisateur.getActivities().contains(activity)) {
-                utilisateur.getActivities().remove(activity); // Unregister the user from the activity
-                utilisateurRepository.save(utilisateur); // Save changes
-            }
-        }
-
-        return "redirect:/activities"; // Redirect to recommendations page
+        return "redirect:/activities"; // Rediriger vers la page des activités
     }
 
+    @GetMapping("/en-savoir-plus/{activityId}")
+    public String enSavoirPlus(@PathVariable Long activityId, Model model) {
+        // Récupérer l'activité par son ID
+        Activity activite = activityRepository.findById(activityId)
+                .orElseThrow(() -> new RuntimeException("Activité non trouvée"));
+
+        // Ajouter l'activité et la catégorie au modèle
+        model.addAttribute("activite", activite);
+        model.addAttribute("categorieId", activite.getCategories().iterator().next().getId());
+
+        return "en-savoir-plus"; // Retourner la vue Thymeleaf
+    }
 }

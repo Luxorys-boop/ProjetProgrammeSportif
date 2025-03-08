@@ -1,5 +1,6 @@
 package com.sportprog.prog.model;
 
+import java.util.List;
 import java.util.Set;
 import jakarta.persistence.*;
 
@@ -16,8 +17,11 @@ public class Utilisateur {
     private Integer age;
     private String email;
     private String genre;
-    private String pathologie;
 
+    @Convert(converter = StringListConverter.class)
+    private List<String> pathologies;
+
+    
     @ManyToMany(mappedBy = "utilisateurs") 
     private Set<Activity> activities;
 
@@ -78,12 +82,12 @@ public class Utilisateur {
         this.genre = genre;
     }
 
-    public String getPathologie() {
-        return pathologie;
+    public List<String> getPathologies() {
+        return pathologies;
     }
 
-    public void setPathologie(String pathologie) {
-        this.pathologie = pathologie;
+    public void setPathologies(List<String> pathologies) {
+        this.pathologies = pathologies;
     }
 
     public Set<Activity> getActivities() {

@@ -32,6 +32,26 @@ public class Activity {
 
     private String description;
 
+    private String adresse;
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    private String url;
+
     // Getters et setters
     public Long getId() {
         return id;

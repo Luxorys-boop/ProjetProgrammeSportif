@@ -21,21 +21,6 @@
                 </li>
             </ul>
         </section>
-        <section th:if="${activite}">
-            <h2 th:text="${activite.nom}">Activité</h2>
-            <ul>
-                <!-- Boucle sur les programmes -->
-                <li th:each="programme : ${programmes}">
-                    <div th:text="${programme.nom}">Programme</div>
-                    <button th:if="${!programme.inscrit}" th:onclick="'/inscrire/' + ${programme.id}">
-                        S'inscrire
-                    </button>
-                    <button th:if="${programme.inscrit}" th:onclick="'/desinscrire/' + ${programme.id}">
-                        Se désinscrire
-                    </button>
-                </li>
-            </ul>
-        </section>
     </main>
 </body>
 </html>

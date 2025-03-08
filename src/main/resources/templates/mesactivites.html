@@ -13,14 +13,17 @@
         <section>
             <h2>Liste de mes activités</h2>
             <ul>
-                <!-- Boucle sur les activités avec leurs évaluations -->
+                <!-- Afficher un message si l'utilisateur n'a pas d'activités -->
                 <div th:if="${message != null}" class="message">
                     <p th:text="${message}">Vous n'avez pas encore d'activités.</p>
                 </div>
+
+                <!-- Boucle sur les activités avec leurs évaluations -->
                 <li th:each="entry : ${activitesAvecEvaluations}">
                     <div>
                         <strong th:text="${entry.key.nom}">Nom de l'activité</strong>
                         <p th:text="${entry.key.description}">Description de l'activité</p>
+
                         <!-- Afficher l'évaluation si elle existe -->
                         <div th:if="${entry.value != null}">
                             <span>Note : </span>
@@ -28,8 +31,23 @@
                             <span>Commentaire : </span>
                             <span th:text="${entry.value.commentaire}">Commentaire</span>
                         </div>
+
+                        <!-- Afficher un formulaire d'évaluation si l'activité n'a pas encore été évaluée -->
                         <div th:unless="${entry.value != null}">
                             <span>Aucune évaluation pour cette activité.</span>
+
+                            <!-- Formulaire d'évaluation -->
+                            <form th:action="@{/evaluations/ajouter}" method="post">
+                                <input type="hidden" name="activityId" th:value="${entry.key.id}">
+                                
+                                <label for="note">Note (entre 1 et 5) :</label>
+                                <input type="number" id="note" name="note" min="1" max="5" required>
+                                
+                                <label for="commentaire">Commentaire :</label>
+                                <textarea id="commentaire" name="commentaire" rows="3" cols="30"></textarea>
+                                
+                                <button type="submit">Évaluer</button>
+                            </form>
                         </div>
                     </div>
                 </li>

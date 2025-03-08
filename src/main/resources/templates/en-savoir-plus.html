@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails de l'activité - [[${activite.nom}]]</title>
+    <link rel="stylesheet" th:href="@{/css/en-savoir-plus.css}">
+</head>
+<body>
+    <header>
+        <h1>Détails de l'activité - [[${activite.nom}]]</h1>
+    </header>
+    <main>
+        <section>
+            <h2>[[${activite.nom}]]</h2>
+            <p th:text="${activite.description}">Description de l'activité</p>
+            <p th:text="${activite.adresse}">Adresse de l'activité</p>
+            <a th:href="${activite.url}">Lien vers l'organisation</p>
+
+            <!-- Boutons pour s'inscrire ou se désinscrire -->
+            <div>
+                <a th:href="@{'/inscrire/' + ${activite.id}}">S'inscrire</a>
+                <a th:href="@{'/desinscrire/' + ${activite.id}}">Se désinscrire</a>
+            </div>
+
+            <!-- Lien pour retourner à la liste des activités -->
+            <a th:href="@{/activites/categorie/{id}(id=${categorieId})}">Retour à la liste</a>
+        </section>
+    </main>
+</body>
+</html>

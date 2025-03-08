@@ -16,6 +16,7 @@
                 <li th:each="activite : ${activites}">
                     <div th:text="${activite.nom}">Nom de l'activité</div>
                     <div th:text="${activite.description}">Description de l'activité</div>
+                    <a th:href="@{'/en-savoir-plus/' + ${activite.id}}">Voir plus</a>
                     <p></p>
                 </li>
             </ul>
