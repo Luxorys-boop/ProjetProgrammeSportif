@@ -2,10 +2,13 @@ package com.sportprog.prog.model;
 
 
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 
 @Entity
@@ -22,6 +25,9 @@ public class Utilisateur {
     private String email;
     private String genre;
     private String pathologie;
+
+    @ManyToMany(mappedBy = "users") // "users" est le nom de l'attribut dans Activity
+    private Set<Activity> activities;
 
     // Getters et setters
     public Long getId() {
@@ -90,6 +96,13 @@ public class Utilisateur {
     public void setPathologie(String pathologie) {
         // TODO Auto-generated method stub
         this.pathologie = pathologie;
+    }
+
+    public Set<Activity> getActivities() {
+        return activities;
+    }
+    public void setActivities(Set<Activity> activities) {
+        this.activities = activities;
     }
 
 }

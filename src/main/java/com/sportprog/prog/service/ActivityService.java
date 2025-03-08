@@ -62,4 +62,6 @@ public interface ActivityService {
 
     public void desinscrireUtilisateur(Long utilisateurId, Long activityId);
 
+    
+
 }

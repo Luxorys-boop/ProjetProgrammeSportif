@@ -29,7 +29,20 @@ public class Activity {
     )
     private Set<Categorie> categories;
 
+    @ManyToMany
+    @JoinTable(
+        name = "utilisateur_activite", // Nom de la table de liaison
+        joinColumns = @JoinColumn(name = "activity_id"), // Colonne de cette entité (Activity)
+        inverseJoinColumns = @JoinColumn(name = "user_id") // Colonne de l'autre entité (User)
+    )
+    private Set<Utilisateur> users;
+
+    @ManyToMany(mappedBy = "activity")  // Assurez-vous que le champ 'activity' existe dans Evaluation
+    private Set<Evaluation> reco;
+
+
     private String description;
+
     private String pathologie;
 
     public Long getId() {
