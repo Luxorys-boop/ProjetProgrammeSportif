@@ -3,7 +3,6 @@ package com.sportprog.prog.repository;
 import com.sportprog.prog.model.Activity;
 import com.sportprog.prog.dto.CategoryDTO;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

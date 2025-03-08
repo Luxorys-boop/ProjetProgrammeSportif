@@ -1,7 +1,5 @@
 package com.sportprog.prog.controller;
 import com.sportprog.prog.model.Evaluation;
-import com.sportprog.prog.repository.ActivityRepository;
-import com.sportprog.prog.repository.EvaluationRepository;
 
 import com.sportprog.prog.model.Activity;
 import com.sportprog.prog.model.Utilisateur;
@@ -24,21 +22,17 @@ import java.util.Map;
 
 import jakarta.servlet.http.Cookie;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 public class MyProfileController {
 
-    @Autowired
-    private ActivityRepository activityRepository; // Injection de ActivityRepository
+
 
     @Autowired
     private ActivityService activityService;
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
-    @Autowired
-    private EvaluationRepository evaluationRepository;
 
     @Autowired EvaluationService evaluationService;
 
@@ -102,15 +96,21 @@ public class MyProfileController {
 
         // Récupérer les activités de l'utilisateur via la table utilisateur_activite
         List<Activity> activites = activityService.findActivitiesByUserId(utilisateur.getId());
+        System.out.println("TESTS !");
 
         // Créer une map pour stocker les activités et leurs évaluations
         Map<Activity, Evaluation> activitesAvecEvaluations = new HashMap<>();
         // Pour chaque activité, récupérer l'évaluation de l'utilisateur (s'il y en a une)
-        for (Activity activite : activites) {            
-            Optional<Evaluation> evaluationOpt = evaluationService.findByUtilisateurAndActivity(utilisateur, activite);
-            evaluationOpt.ifPresent(evaluation -> activitesAvecEvaluations.put(activite, evaluation));
-            System.out.println(activite.getNom() + " : " +evaluationOpt.get().getNote() + "FDPPPPPPPPPPPPPPPPPPPPP");
+        try {
+            for (Activity activite : activites) {            
+                Optional<Evaluation> evaluationOpt = evaluationService.findByUtilisateurAndActivity(utilisateur, activite);
+                evaluationOpt.ifPresent(evaluation -> activitesAvecEvaluations.put(activite, evaluation));
+                System.out.println(activite.getNom() + " : " +evaluationOpt.get().getNote() + "FDPPPPPPPPPPPPPPPPPPPPP");
+            }
+        } catch (NullPointerException e) {
+            model.addAttribute("message", "Vous n'avez pas encore d'activités.");
         }
+        
 
         // Ajouter les données au modèle
         model.addAttribute("activitesAvecEvaluations", activitesAvecEvaluations);

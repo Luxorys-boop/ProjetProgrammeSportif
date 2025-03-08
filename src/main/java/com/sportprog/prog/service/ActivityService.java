@@ -3,10 +3,9 @@ package com.sportprog.prog.service;
 import com.sportprog.prog.model.Activity;
 import com.sportprog.prog.dto.CategoryDTO;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 public interface ActivityService {

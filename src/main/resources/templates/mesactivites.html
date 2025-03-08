@@ -14,6 +14,9 @@
             <h2>Liste de mes activités</h2>
             <ul>
                 <!-- Boucle sur les activités avec leurs évaluations -->
+                <div th:if="${message != null}" class="message">
+                    <p th:text="${message}">Vous n'avez pas encore d'activités.</p>
+                </div>
                 <li th:each="entry : ${activitesAvecEvaluations}">
                     <div>
                         <strong th:text="${entry.key.nom}">Nom de l'activité</strong>
