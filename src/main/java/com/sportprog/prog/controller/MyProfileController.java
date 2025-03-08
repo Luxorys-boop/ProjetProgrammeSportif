@@ -1,10 +1,13 @@
 package com.sportprog.prog.controller;
 import com.sportprog.prog.model.Evaluation;
+import com.sportprog.prog.repository.ActivityRepository;
 import com.sportprog.prog.repository.EvaluationRepository;
 
 import com.sportprog.prog.model.Activity;
 import com.sportprog.prog.model.Utilisateur;
 import com.sportprog.prog.repository.UtilisateurRepository;
+import com.sportprog.prog.service.ActivityService;
+import com.sportprog.prog.service.EvaluationService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -27,10 +30,17 @@ import java.util.Set;
 public class MyProfileController {
 
     @Autowired
-    private UtilisateurRepository utilisateurRepository; // Utilisation de l'instance injectée
+    private ActivityRepository activityRepository; // Injection de ActivityRepository
 
     @Autowired
+    private ActivityService activityService;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+    @Autowired
     private EvaluationRepository evaluationRepository;
+
+    @Autowired EvaluationService evaluationService;
 
     private Utilisateur getUtilisateurConnecte(HttpServletRequest request) {
         String user_email = null;
@@ -82,28 +92,32 @@ public class MyProfileController {
     }
 
     @GetMapping("/mesactivites")
-public String mesActivites(Model model, HttpServletRequest request) {
-    Utilisateur utilisateur = getUtilisateurConnecte(request);
-    if (utilisateur == null) {
-        return "redirect:/login"; // Redirige vers la connexion si l'utilisateur n'est pas trouvé
+    public String mesActivites(Model model, HttpServletRequest request) {
+        // Récupérer l'utilisateur connecté
+        
+        Utilisateur utilisateur = getUtilisateurConnecte(request);
+        if (utilisateur == null) {
+            return "redirect:/login"; // Redirige vers la connexion si l'utilisateur n'est pas trouvé
+        }
+
+        // Récupérer les activités de l'utilisateur via la table utilisateur_activite
+        List<Activity> activites = activityService.findActivitiesByUserId(utilisateur.getId());
+
+        // Créer une map pour stocker les activités et leurs évaluations
+        Map<Activity, Evaluation> activitesAvecEvaluations = new HashMap<>();
+        // Pour chaque activité, récupérer l'évaluation de l'utilisateur (s'il y en a une)
+        for (Activity activite : activites) {            
+            Optional<Evaluation> evaluationOpt = evaluationService.findByUtilisateurAndActivity(utilisateur, activite);
+            evaluationOpt.ifPresent(evaluation -> activitesAvecEvaluations.put(activite, evaluation));
+            System.out.println(activite.getNom() + " : " +evaluationOpt.get().getNote() + "FDPPPPPPPPPPPPPPPPPPPPP");
+        }
+
+        // Ajouter les données au modèle
+        model.addAttribute("activitesAvecEvaluations", activitesAvecEvaluations);
+        model.addAttribute("utilisateur", utilisateur);
+
+        return "mesactivites"; // Affichage dans la vue Thymeleaf
     }
-
-    // Récupérer les activités auxquelles l'utilisateur est inscrit
-    Set<Activity> activitesInscrites = utilisateur.getActivities();
-
-    // Récupérer les évaluations associées à ces activités
-    Map<Long, List<Evaluation>> evaluationsParActivite = new HashMap<>();
-    for (Activity activite : activitesInscrites) {
-        List<Evaluation> evaluations = evaluationRepository.findByActivity(activite);
-        evaluationsParActivite.put(activite.getId(), evaluations);
-    }
-
-    // Ajouter les données au modèle pour Thymeleaf
-    model.addAttribute("activites", activitesInscrites);
-    model.addAttribute("evaluationsParActivite", evaluationsParActivite);
-
-    return "mesactivites"; // Affichage dans la vue Thymeleaf
-}
 
 
     @GetMapping("/update_profile")

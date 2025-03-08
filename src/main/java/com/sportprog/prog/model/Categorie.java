@@ -1,12 +1,7 @@
 package com.sportprog.prog.model;
 
 import java.util.Set;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 @Entity
 public class Categorie {
@@ -17,7 +12,7 @@ public class Categorie {
 
     private String nom;
 
-    @ManyToMany(mappedBy = "categories") // mappedBy indique que la relation est gérée par l'entité Activity
+    @ManyToMany(mappedBy = "categories") // Corrigé en "categories"
     private Set<Activity> activities;
 
     // Getters et setters

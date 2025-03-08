@@ -4,11 +4,13 @@ import com.sportprog.prog.dto.CategoryDTO;
 import com.sportprog.prog.model.Activity;
 import com.sportprog.prog.repository.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ActivityServiceImplement implements ActivityService {
@@ -103,5 +105,9 @@ public class ActivityServiceImplement implements ActivityService {
         return activityRepository.findActivitiesByCategoryId(categoryId);
     }
 
+    @Override
+    public List<Activity> findActivitiesByUserId(Long userId) {
+        return activityRepository.findActivitiesByUserId(userId);
+    }
    
 }

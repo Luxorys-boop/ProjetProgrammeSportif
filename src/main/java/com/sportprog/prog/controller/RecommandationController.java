@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +29,7 @@ public class RecommandationController {
     @Autowired
     private EvaluationRepository evaluationRepository;
 
-     @Autowired
+    @Autowired
     private UtilisateurRepository utilisateurRepository; // Utilisation de l'instance injectée
 
     @Autowired
@@ -50,7 +51,7 @@ public String mesActivites(Model model, HttpServletRequest request) {
 
     // Crée une liste de paires (Activity, Note) à partir des évaluations
     List<Pair<Activity, Integer>> activiteNotePairs = evaluations.stream()
-        .flatMap(evaluation -> evaluation.getActivity().stream() // Pour chaque activité dans l'évaluation
+        .flatMap(evaluation -> ((Collection<Activity>) evaluation.getActivity()).stream() // Pour chaque activité dans l'évaluation
             .map(activity -> Pair.of(activity, evaluation.getNote())) // Crée une paire (Activity, Note)
         )
         .collect(Collectors.toList());

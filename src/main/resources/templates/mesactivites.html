@@ -3,33 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Mes Activités</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <h1>Mes Activités</h1>
-    
-    <!-- Lien vers la page d'accueil -->
-    <a th:href="@{/index}">Accueil</a>
-
-    <ul>
-        <!-- Boucle sur les activités -->
-        <li th:each="activite : ${activites}">
-            <h2 th:text="${activite.nom}"></h2>
-            <p><strong>Catégorie :</strong> <span th:text="${activite.categorie}"></span></p>
-            <p><strong>Description :</strong> <span th:text="${activite.description}"></span></p>
-            <p><strong>Pathologies :</strong> <span th:text="${activite.pathologies}"></span></p>
-
-            <h3>Évaluations :</h3>
+    <header>
+        <h1>Mes Activités</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Liste de mes activités</h2>
             <ul>
-                <!-- Boucle sur les évaluations liées à cette activité -->
-                <li th:each="evaluation : ${evaluationsParActivite[activite.id]}">
-                    <p><strong>Note :</strong> <span th:text="${evaluation.note}"></span> ⭐</p>
-                    <p><strong>Commentaire :</strong> <span th:text="${evaluation.commentaire}"></span></p>
-                    <p><strong>Par :</strong> <span th:text="${evaluation.utilisateur.nom}"></span></p>
+                <!-- Boucle sur les activités avec leurs évaluations -->
+                <li th:each="entry : ${activitesAvecEvaluations}">
+                    <div>
+                        <strong th:text="${entry.key.nom}">Nom de l'activité</strong>
+                        <p th:text="${entry.key.description}">Description de l'activité</p>
+                        <!-- Afficher l'évaluation si elle existe -->
+                        <div th:if="${entry.value != null}">
+                            <span>Note : </span>
+                            <span th:text="${entry.value.note}">Note</span>
+                            <span>Commentaire : </span>
+                            <span th:text="${entry.value.commentaire}">Commentaire</span>
+                        </div>
+                        <div th:unless="${entry.value != null}">
+                            <span>Aucune évaluation pour cette activité.</span>
+                        </div>
+                    </div>
                 </li>
             </ul>
-        </li>
-    </ul>
-
+        </section>
+    </main>
 </body>
 </html>

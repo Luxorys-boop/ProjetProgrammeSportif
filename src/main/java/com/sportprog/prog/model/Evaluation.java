@@ -1,7 +1,5 @@
 package com.sportprog.prog.model;
 
-import java.util.Set;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -9,25 +7,20 @@ public class Evaluation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "utilisateur_id", nullable = false) // Clé étrangère vers Utilisateur
     private Utilisateur utilisateur;
 
-    @ManyToMany
-    @JoinTable(
-    name = "evaluation", 
-    joinColumns = @JoinColumn(name = "activity_id"), 
-    inverseJoinColumns = @JoinColumn(name = "utilisateur_id")
-    )
-    private Set<Activity> activity;
-
+    @ManyToOne
+    @JoinColumn(name = "activity_id", nullable = false) // Clé étrangère vers Activity
+    private Activity activity;
 
     private String commentaire;
     private int note;
 
-    // Getters et Setters
+    // Getters et setters
     public Long getId() {
         return id;
     }
@@ -44,12 +37,12 @@ public class Evaluation {
         this.utilisateur = utilisateur;
     }
 
-    public Set<Activity> getActivity() {
+    public Activity getActivity() {
         return activity;
     }
 
-    public void addActivity(Activity activity) {
-        this.activity.add(activity);
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     public String getCommentaire() {
