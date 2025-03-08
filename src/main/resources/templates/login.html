@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion...</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
     <div class="container">
@@ -20,7 +20,7 @@
         <p th:if="${param.error}" class="error">Nom d'utilisateur ou mot de passe incorrect.</p>
         <p th:if="${param.logout}" class="success">Vous avez été déconnecté.</p>
     </div>
-    <div>
+    <div class="register-link">
         Pas de compte ? <a th:href="@{/register}">Cliquez ici.</a>
     </div>
 </body>

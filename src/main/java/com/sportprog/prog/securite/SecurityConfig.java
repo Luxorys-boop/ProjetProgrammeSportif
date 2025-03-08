@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/index", "/login", "/register", "/activities").permitAll() // Pages publiques
+                .requestMatchers("/index", "/login", "/register", "/activities", "/css/**", "/js/**", "/images/**").permitAll() // Pages publiques
                 .requestMatchers("/my_profile", "/update_profile", "/recommendations", "mesactivites").authenticated() // Pages protégées
                 .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
             )

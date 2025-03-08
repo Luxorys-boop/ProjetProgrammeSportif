@@ -1,4 +1,4 @@
-package com.sportprog.prog.Login;
+package com.sportprog.prog.login;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

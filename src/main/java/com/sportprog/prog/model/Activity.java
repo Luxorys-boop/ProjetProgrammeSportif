@@ -28,6 +28,8 @@ public class Activity {
     )
     private Set<Utilisateur> utilisateurs;
 
+    private String pathologie;
+
     private String description;
 
     // Getters et setters
@@ -45,6 +47,14 @@ public class Activity {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getPathologie() {
+        return pathologie;
+    }
+
+    public void setPathologie(String pathologie) {
+        this.pathologie = pathologie;
     }
 
     public String getDescription() {

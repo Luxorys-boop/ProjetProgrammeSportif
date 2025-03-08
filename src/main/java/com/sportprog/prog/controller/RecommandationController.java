@@ -4,9 +4,9 @@ import com.sportprog.prog.dto.ActivityNoteDTO;
 import com.sportprog.prog.model.Activity;
 import com.sportprog.prog.model.Evaluation;
 import com.sportprog.prog.model.Utilisateur;
-import com.sportprog.prog.repository.ActivityRepository;
-import com.sportprog.prog.repository.EvaluationRepository;
 import com.sportprog.prog.repository.UtilisateurRepository;
+import com.sportprog.prog.service.ActivityService;
+import com.sportprog.prog.service.EvaluationService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,14 +26,16 @@ import java.util.stream.Collectors;
 @Controller
 public class RecommandationController {
 
+
     @Autowired
-    private EvaluationRepository evaluationRepository;
+    private EvaluationService evaluationService;
+
+    @Autowired
+    private ActivityService activityService;
 
     @Autowired
     private UtilisateurRepository utilisateurRepository; // Utilisation de l'instance injectée
 
-    @Autowired
-    private ActivityRepository activityRepository;
 
     @GetMapping("/recommendations")
 public String mesActivites(Model model, HttpServletRequest request) {
@@ -44,16 +46,17 @@ public String mesActivites(Model model, HttpServletRequest request) {
     }
 
     // Récupère toutes les activités
-    List<Activity> toutesLesActivites = activityRepository.findAll();
+    List<Activity> toutesLesActivites = activityService.findAll();
 
     // Récupère les évaluations de l'utilisateur connecté
-    List<Evaluation> evaluations = evaluationRepository.findByUtilisateur(utilisateur);
+    List<Evaluation> evaluations = evaluationService.findByUtilisateur(utilisateur);
+    System.out.println("TESTS");
+    System.out.println(toutesLesActivites.get(0).getNom());
+    System.out.println(evaluations.get(0).getCommentaire());
 
     // Crée une liste de paires (Activity, Note) à partir des évaluations
     List<Pair<Activity, Integer>> activiteNotePairs = evaluations.stream()
-        .flatMap(evaluation -> ((Collection<Activity>) evaluation.getActivity()).stream() // Pour chaque activité dans l'évaluation
-            .map(activity -> Pair.of(activity, evaluation.getNote())) // Crée une paire (Activity, Note)
-        )
+        .map(evaluation -> Pair.of(evaluation.getActivity(), evaluation.getNote())) // Crée une paire (Activity, Note)
         .collect(Collectors.toList());
 
     // Crée une liste de DTO pour afficher toutes les activités avec leurs notes

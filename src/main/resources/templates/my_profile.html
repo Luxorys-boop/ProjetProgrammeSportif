@@ -2,22 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion...</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Mon Profil</title>
+    <link rel="stylesheet" th:href="@{/css/my_profile.css}">
 </head>
 <body>
-    <a th:href="@{/index}">Accueil</a>
-    <h1>Mon Profil</h1><a th:href="@{/mesactivites}">
-        <button>Voir mes activités</button>
-    </a>
-    <p>Email : <span th:text="${utilisateur.email}"></span></p>
-    <p>Nom : <span th:text="${utilisateur.nom}"></span></p>
-    <p>Âge : <span th:text="${utilisateur.age}"></span></p>
-    <p>Genre : <span th:text="${utilisateur.genre}"></span></p>
-    <p>Pathologie : <span th:text="${utilisateur.pathologie}"></span></p>
-    <a th:href="@{/update_profile}">
-        <button>Modifier mon profil</button>
-    </a>
-
+    <header>
+        <h1>Mon Profil</h1>
+    </header>
+    <main>
+        <div class="profile-info">
+            <p>Email : <span th:text="${utilisateur.email}"></span></p>
+            <p>Nom : <span th:text="${utilisateur.nom}"></span></p>
+            <p>Âge : <span th:text="${utilisateur.age}"></span></p>
+            <p>Genre : <span th:text="${utilisateur.genre}"></span></p>
+            <p>Pathologie : <span th:text="${utilisateur.pathologie}"></span></p>
+        </div>
+        <div class="actions">
+            <a th:href="@{/mesactivites}">
+                <button>Voir mes activités</button>
+            </a>
+            <a th:href="@{/update_profile}">
+                <button>Modifier mon profil</button>
+            </a>
+        </div>
+    </main>
 </body>
 </html>

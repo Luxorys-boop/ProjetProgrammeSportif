@@ -107,5 +107,8 @@ public class ActivityServiceImplement implements ActivityService {
     public List<Activity> findActivitiesByUserId(Long userId) {
         return activityRepository.findActivitiesByUserId(userId);
     }
-   
+    @Override
+    public List<Activity> findAll() {
+        return activityRepository.findAll();
+    }
 }

@@ -66,6 +66,8 @@ public interface ActivityService {
 
     public List<Activity> findActivitiesByUserId(Long userId);
 
+    public List<Activity> findAll();
+
     
     
 
