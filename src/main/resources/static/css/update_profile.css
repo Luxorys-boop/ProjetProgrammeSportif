@@ -1,24 +1,19 @@
-/* Variables de couleurs */
 :root {
-    --primary-color: #ffc374; /* Orange doux */
-    --secondary-color: #6a4a3a; /* Marron terreux */
-    --background-color: #2d2d2d; /* Fond gris foncé */
-    --text-color: #ffffff; /* Texte blanc */
-    --accent-color: #ff8c42; /* Orange vif */
-    --button-hover-color: #e67e22; /* Orange plus foncé */
-    --border-radius: 10px; /* Bordures arrondies */
-    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre douce */
+    --primary-color: #ffc374; 
+    --secondary-color: #6a4a3a; 
+    --background-color: #2d2d2d; 
+    --text-color: #ffffff; 
+    --accent-color: #ff8c42; 
+    --button-hover-color: #e67e22; 
+    --border-radius: 10px; 
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
 }
 
-/* Réinitialisation des styles */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    
 }
 
 body section {
@@ -82,7 +77,7 @@ input[type="number"] {
 
 input[type="text"]:focus,
 input[type="number"]:focus {
-    box-shadow: 0 0 8px rgba(255, 195, 116, 0.4); /* Ombre orange */
+    box-shadow: 0 0 8px rgba(255, 195, 116, 0.4);
 }
 
 .checkbox-group {
