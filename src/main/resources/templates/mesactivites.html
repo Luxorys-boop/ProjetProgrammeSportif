@@ -16,6 +16,7 @@
                 <!-- Afficher un message si l'utilisateur n'a pas d'activités -->
                 <div th:if="${message != null}" class="message">
                     <p th:text="${message}">Vous n'avez pas encore d'activités.</p>
+                    <a th:href="@{'/activities'}">Découvrez nos activités</a>
                 </div>
 
                 <!-- Boucle sur les activités avec leurs évaluations -->
@@ -26,9 +27,7 @@
 
                         <!-- Afficher l'évaluation si elle existe -->
                         <div th:if="${entry.value != null}">
-                            <span>Note : </span>
-                            <span th:text="${entry.value.note}">Note</span>
-                            <span>Commentaire : </span>
+                            <span>Note : <span th:text="${entry.value.note}">/5</span></span>
                             <span th:text="${entry.value.commentaire}">Commentaire</span>
                         </div>
 
@@ -49,10 +48,18 @@
                                 <button type="submit">Évaluer</button>
                             </form>
                         </div>
+
+                        <!-- Bouton pour se désinscrire -->
+                        <div class="unsubscribe-button">
+                            <form th:action="@{'/desinscrireUser/' + ${entry.key.id}}" method="get">
+                                <button type="submit" class="btn btn-desinscrire">Se désinscrire</button>
+                            </form>
+                        </div>
                     </div>
                 </li>
             </ul>
         </section>
+        <a th:href="@{/my_profile}" class="back-link">← Retour à mon profil</a>
     </main>
 </body>
 </html>

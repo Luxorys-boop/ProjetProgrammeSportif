@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Activités</title>
-    <link rel="stylesheet" th:href="@{/css/actvities.css}">
+    <link rel="stylesheet" th:href="@{/css/activities.css}">
+    <!-- Lien vers une librairie d'icônes (ex: FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
         <h1>Activités</h1>
     </header>
     <main>
-        <section>
+        <section class="categories-section">
             <h2>Catégories d'activités</h2>
-            <ul>
-                <!-- Boucle sur les catégories distinctes -->
-                <li th:each="categorie : ${categories}">
-                    <!-- Affichez la catégorie -->
-                    <a th:href="@{'/activites/categorie/' + ${categorie.id}}"
-                       th:text="${categorie.categorie}">Catégorie</a>
-                </li>
-            </ul>
+            <div class="categories-grid">
+                <!-- Boucle sur les catégories -->
+                <div th:each="categorie : ${categories}" class="category-card">
+                    <a th:href="@{'/activites/categorie/' + ${categorie.id}}" class="category-link">
+                        <div class="category-icon">
+                            <i class="fas fa-star"></i> <!-- Icône de la catégorie -->
+                        </div>
+                        <h3 th:text="${categorie.categorie}" class="category-title">Nom de la catégorie</h3>
+                    </a>
+                </div>
+            </div>
         </section>
+        <a th:href="@{/index}" class="back-link">← Retour en arrière</a>
     </main>
 </body>
 </html>

@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/index", "/login", "/register", "/activities", "/css/**", "/js/**", "/images/**").permitAll() // Pages publiques
+                .requestMatchers("/", "/index", "/login", "/register", "/activities", "/css/**", "/js/**", "/img/**").permitAll() // Pages publiques
                 .requestMatchers("/my_profile", "/update_profile", "/recommendations", "mesactivites").authenticated() // Pages protégées
                 .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
             )

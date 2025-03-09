@@ -1,61 +1,140 @@
-/* styles.css */
-body {
-    font-family: 'Arial', sans-serif;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    outline: none;
+    font-family: 'Tw Cen MT' , sans-serif;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+.container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)), url('../img/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 0 8%;
+}  
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 5px 0;
+}
+
+nav .logo {
+    width: 120px;
+    cursor: pointer;
 }
 
 nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    flex: 1;
+    padding-right: 40px;
+    text-align: right;
+    list-style-type: none;
 }
 
-nav ul li {
-    margin: 0 15px;
+ul li {
+    margin-right: 10px;
 }
 
-nav ul li a {
-    color: #fff;
+ul li a {
+    position: relative;
+    padding: 10px 20px;
     text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    -webkit-text-stroke: 1px #ffb496;
+}
+
+ul li a::after {
+    content: '';
+    background: #ffa400;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 3px;
+    transform: translate(-50%, -5px);
+    transition: 0.3s
+}
+
+ul li a:hover::after {
+    width: 38%;
+}
+
+.site-container {
+    position: absolute;
+    bottom: 10%;
+    color: #fff;
+}
+
+.site-container p {
+    font-size: 50px;
     font-weight: bold;
 }
 
-main {
+.site-container h1 {
+    font-size: 120px;
+    line-height: 120px;
+    margin-left: -10px;
+    color: transparent;
+    -webkit-text-stroke: 1px #fff;
+    background: url('../img/pattern.png');
+    -webkit-background-clip: text;
+    background-position: 0 0;
+    animation: animate 20s linear 2s infinite alternate;
+}
+
+@keyframes animate {
+    100% {
+        background-position: -500px 0;
+    }
+}
+
+.site-container h3 {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+
+.footer {
+    --footer-background: #ED5565;
     position: relative;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('../img/parallax-background.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: var(--footer-background);
+    color: white;
+    padding: 2rem 0;
+    z-index: 1;
 }
 
-h1 {
-    font-size: 3em;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1rem;
+    background: var(--footer-background);
+    filter: blur(10px);
 }
 
-footer {
-    background-color: #333;
-    color: #fff;
+.bubble {
+    position: absolute;
+    left: var(--position, 50%);
+    background: var(--footer-background);
+    border-radius: 100%;
+    animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
+               bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
+    transform: translate(-50%, 100%);
+}
+
+.content {
+    z-index: 2;
     text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    padding: 2rem;
 }

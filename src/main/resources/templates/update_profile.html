@@ -14,7 +14,6 @@
         <input type="hidden" name="userId" th:value="${utilisateur.id}">
     
         <!-- Champs du formulaire -->
-
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" th:field="*{nom}" required><br>
     
@@ -25,29 +24,34 @@
         <input type="text" id="genre" name="genre" th:field="*{genre}" required><br>
     
         <label>Pathologies :</label><br>
-        <div>
-            <label for="asthme">Asthme</label>
-            <input type="checkbox" id="asthme" name="pathologies" value="Asthme" 
-                   th:checked="${utilisateur.pathologies != null and utilisateur.pathologies.contains('Asthme')}">
-        </div>
-        <div>
-            <label for="diabete">Diabète</label>
-            <input type="checkbox" id="diabete" name="pathologies" value="Diabète" 
-                   th:checked="${utilisateur.pathologies != null and utilisateur.pathologies.contains('Diabète')}">
-        </div>
-        <div>
-            <label for="hypertension">Hypertension</label>
-            <input type="checkbox" id="hypertension" name="pathologies" value="Hypertension" 
-                   th:checked="${utilisateur.pathologies != null and utilisateur.pathologies.contains('Hypertension')}">
-        </div>
-        <div>
-            <label for="allergies">Allergies</label>
-            <input type="checkbox" id="allergies" name="pathologies" value="Allergies" 
-                   th:checked="${utilisateur.pathologies != null and utilisateur.pathologies.contains('Allergies')}">
+        <div class="checkbox-group">
+            <div>
+                <label for="asthme">Asthme</label>
+                <input type="checkbox" id="asthme" name="pathologies" value="Asthme" 
+                       th:checked="${utilisateur.pathologies != null and utilisateur.pathologies.contains('Asthme')}">
+            </div>
+            <div>
+                <label for="diabete">Diabète</label>
+                <input type="checkbox" id="diabete" name="pathologies" value="Diabète" 
+                       th:checked="${utilisateur.pathologies != null and utilisateur.pathologies.contains('Diabète')}">
+            </div>
+            <div>
+                <label for="hypertension">Hypertension</label>
+                <input type="checkbox" id="hypertension" name="pathologies" value="Hypertension" 
+                       th:checked="${utilisateur.pathologies != null and utilisateur.pathologies.contains('Hypertension')}">
+            </div>
+            <div>
+                <label for="allergies">Allergies</label>
+                <input type="checkbox" id="allergies" name="pathologies" value="Allergies" 
+                       th:checked="${utilisateur.pathologies != null and utilisateur.pathologies.contains('Allergies')}">
+            </div>
         </div>
     
         <!-- Bouton de validation -->
         <button type="submit">Mettre à jour</button>
     </form>
+
+    <!-- Lien pour revenir à la page du profil -->
+    <a th:href="@{/my_profile}" class="back-link">← Retour à mon profil</a>
 </body>
 </html>

@@ -10,17 +10,20 @@
         <h1>Activités - [[${categorie}]]</h1>
     </header>
     <main>
-        <section>
+        <section class="activities-section">
             <h2>Liste des activités</h2>
-            <ul>
-                <li th:each="activite : ${activites}">
-                    <div th:text="${activite.nom}">Nom de l'activité</div>
-                    <div th:text="${activite.description}">Description de l'activité</div>
-                    <a th:href="@{'/en-savoir-plus/' + ${activite.id}}">Voir plus</a>
-                    <p></p>
-                </li>
-            </ul>
+            <div class="activities-list">
+                <!-- Boucle sur les activités -->
+                <div th:each="activite : ${activites}" class="activity-card">
+                    <div class="activity-content">
+                        <h3 th:text="${activite.nom}">Nom de l'activité</h3>
+                        <p th:text="${activite.description}">Description de l'activité</p>
+                        <a th:href="@{'/en-savoir-plus/' + ${activite.id}}" class="activity-link">Voir plus</a>
+                    </div>
+                </div>
+            </div>
         </section>
+        <a th:href="@{/activities}" class="back-link">← Retour en arrière</a>
     </main>
 </body>
 </html>

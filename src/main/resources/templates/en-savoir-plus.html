@@ -10,20 +10,24 @@
         <h1>Détails de l'activité - [[${activite.nom}]]</h1>
     </header>
     <main>
-        <section>
+        <section class="activity-details">
             <h2>[[${activite.nom}]]</h2>
-            <p th:text="${activite.description}">Description de l'activité</p>
-            <p th:text="${activite.adresse}">Adresse de l'activité</p>
-            <a th:href="${activite.url}">Lien vers l'organisation</p>
+            <div class="activity-info">
+                <p><strong>Description :</strong> <span th:text="${activite.description}">Description de l'activité</span></p>
+                <p><strong>Adresse :</strong> <span th:text="${activite.adresse}">Adresse de l'activité</span></p>
+                <p><strong>Lien :</strong> <a th:href="${activite.url}" target="_blank">Visiter le site de l'organisation</a></p>
+            </div>
 
             <!-- Boutons pour s'inscrire ou se désinscrire -->
-            <div>
-                <a th:href="@{'/inscrire/' + ${activite.id}}">S'inscrire</a>
-                <a th:href="@{'/desinscrire/' + ${activite.id}}">Se désinscrire</a>
+            <div class="action-buttons">
+                <a th:href="@{'/inscrire/' + ${activite.id}}" class="btn btn-inscrire">S'inscrire</a>
+                <a th:href="@{'/desinscrire/' + ${activite.id}}" class="btn btn-desinscrire">Se désinscrire</a>
             </div>
 
             <!-- Lien pour retourner à la liste des activités -->
-            <a th:href="@{/activites/categorie/{id}(id=${categorieId})}">Retour à la liste</a>
+            <div class="back-link">
+                <a th:href="@{/activites/categorie/{id}(id=${categorieId})}" class="btn btn-retour">Retour à la liste</a>
+            </div>
         </section>
     </main>
 </body>

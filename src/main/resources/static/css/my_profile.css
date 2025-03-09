@@ -1,80 +1,114 @@
-/* my_profile.css */
-body {
-    font-family: 'Arial', sans-serif;
+/* Variables de couleurs */
+:root {
+    --primary-color: #ffc374; /* Orange doux */
+    --secondary-color: #6a4a3a; /* Marron terreux */
+    --background-color: #2d2d2d; /* Fond gris foncé */
+    --text-color: #ffffff; /* Texte blanc */
+    --accent-color: #ff8c42; /* Orange vif */
+    --button-hover-color: #e67e22; /* Orange plus foncé */
+    --border-radius: 10px; /* Bordures arrondies */
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre douce */
+}
+
+/* Réinitialisation des styles */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
     text-align: center;
-    width: 100%;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 main {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    margin: 20px;
-}
-
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
 .profile-info {
-    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: var(--box-shadow);
 }
 
 .profile-info p {
-    margin: 10px 0;
-    color: #555;
-    font-size: 1.1em;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
 }
 
 .profile-info span {
     font-weight: bold;
-    color: #333;
+    color: var(--accent-color);
 }
 
 .actions {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
 }
 
-button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-a {
-    color: #007BFF;
+.actions a {
     text-decoration: none;
 }
 
-a:hover {
+.actions button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: var(--box-shadow);
+}
+
+.actions button:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-3px);
+}
+
+.actions button:active {
+    transform: translateY(0);
+}
+
+a.back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+a.back-link:hover {
+    color: var(--button-hover-color);
     text-decoration: underline;
 }

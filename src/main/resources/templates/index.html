@@ -6,13 +6,14 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-    <header>
+    <div class="container">
         <nav>
+            <img src="/img/logo.png" class="logo" alt="" />
             <ul>
                 <li><a th:href="@{/index}">Accueil</a></li>
-                <li><a th:href="@{/my_profile}">Mon Profil</a></li>
                 <li><a th:href="@{/activities}">Activités</a></li>
                 <li><a th:href="@{/recommendations}">Recommandations</a></li>
+                <li><a th:href="@{/my_profile}">Mon Profil</a></li>
                 <li>
                     <div sec:authorize="!isAuthenticated()">
                         <a th:href="@{/login}">Login</a>
@@ -22,15 +23,25 @@
                             <button type="submit">Déconnexion</button>
                         </form>
                     </div>
-                </li>
+                </li>                
             </ul>
-        </nav>
-    </header>
+        </nav>   
+        <div class="site-container">
+            <p>Les meilleurs programmes !</p>
+            <h1>SPORTAREA</h1>
+            <h4>UN BON PROGRAMME POUR UNE BONNE SANTE</h4>
+        </div> 
+    </div>
     <main>
-        <h1>Votre programme Sportif</h1>
+        
     </main>
-    <footer>
-        <p>&copy; 2025 Application d'accompagnement d'activités physiques</p>
+    <footer class="footer">
+        <div class="bubbles">
+            <!-- Les bulles seront générées dynamiquement par le CSS -->
+        </div>
+        <div class="content">
+            <p>&copy; 2025 Application d'accompagnement d'activités physiques</p>
+        </div>
     </footer>
 </body>
 </html>
