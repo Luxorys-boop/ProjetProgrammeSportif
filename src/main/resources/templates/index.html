@@ -20,7 +20,7 @@
                     </div>
                     <div sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post">
-                            <button type="submit">Déconnexion</button>
+                            <button type="submit" class="text-button">Déconnexion</button>
                         </form>
                     </div>
                 </li>                

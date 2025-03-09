@@ -92,6 +92,7 @@ ul li a:hover::after {
     animation: animate 20s linear 2s infinite alternate;
 }
 
+
 @keyframes animate {
     100% {
         background-position: -500px 0;
@@ -101,6 +102,35 @@ ul li a:hover::after {
 .site-container h3 {
     font-size: 40px;
     font-weight: 500;
+}
+
+.text-button {
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    -webkit-text-stroke: 1px #ffb496;
+}
+
+
+.text-button::after {
+    content: '';
+    background: #ffa400;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 3px;
+    transform: translate(-50%, -5px);
+    transition: 0.3s
+}
+
+.text-button:hover::after {
+    width: 38%;
 }
 
 
