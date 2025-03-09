@@ -88,3 +88,38 @@ a.back-link:hover {
     color: var(--button-hover-color);
     text-decoration: underline;
 }
+
+.footer {
+    --footer-background: #ED5565;
+    position: relative;
+    background: var(--footer-background);
+    color: white;
+    padding: 2rem 0;
+    z-index: 1;
+}
+
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1rem;
+    background: var(--footer-background);
+    filter: blur(10px);
+}
+
+.bubble {
+    position: absolute;
+    left: var(--position, 50%);
+    background: var(--footer-background);
+    border-radius: 100%;
+    animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
+               bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
+    transform: translate(-50%, 100%);
+}
+
+.content {
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+}
